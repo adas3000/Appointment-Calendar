@@ -37,17 +37,17 @@ public class SqlHandler {
         }
     }
 
-    public List<TaskData> getAllValuesAsList() {
+    public ArrayList<TaskData> getAllValuesAsList() {
 
         try (SQLiteDatabase db = sqlHelper.getReadableDatabase()) {
             Cursor cursor = sqlHelper.getAllValues(db);
 
-            List<TaskData> arrayList = new ArrayList<>();
+            ArrayList<TaskData> arrayList = new ArrayList<>();
 
             if (cursor.moveToFirst()) {
                 do {
                     String title = cursor.getString(cursor.getColumnIndex(SqlHelper.columns_names[1]));
-                    String str_date = cursor.getString(cursor.getColumnIndex(SqlHelper.columns_names[1]));
+                    String str_date = cursor.getString(cursor.getColumnIndex(SqlHelper.columns_names[2]));
                     Date date = Date.valueOf(str_date);
                     arrayList.add(new TaskData(title, date));
                 } while (cursor.moveToNext());

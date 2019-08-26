@@ -19,8 +19,7 @@ public class SqlHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table task(id INTEGER primary key autoincrement,title varchar,TEXT date)");
-        sqLiteDatabase.close();
+        sqLiteDatabase.execSQL("create table task(id INTEGER primary key autoincrement,title varchar,date TEXT)");
     }
 
     @Override
