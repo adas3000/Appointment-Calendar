@@ -5,8 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mypackage.cafmp.Data.AppData;
+import com.mypackage.cafmp.Data.TaskData;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SqlHandler {
 
@@ -34,9 +37,23 @@ public class SqlHandler {
         }
     }
 
-    public Cursor getAllValues(){
-        try(SQLiteDatabase db = sqlHelper.getReadableDatabase()){
-            return sqlHelper.getAllValues(db);
+    public List<TaskData> getAllValuesAsList() {
+
+        try (SQLiteDatabase db = sqlHelper.getReadableDatabase()) {
+            Cursor cursor = sqlHelper.getAllValues(db);
+
+            List<TaskData> arrayList = new ArrayList<>();
+
+            if (cursor.moveToFirst()) {
+                do {
+                    String title = cursor.getString(cursor.getColumnIndex(SqlHelper.columns_names[1]));
+                    String str_date = cursor.getString(cursor.getColumnIndex(SqlHelper.columns_names[1]));
+                    Date date = Date.valueOf(str_date);
+                    arrayList.add(new TaskData(title, date));
+                } while (cursor.moveToNext());
+            }
+
+            return arrayList;
         }
     }
 

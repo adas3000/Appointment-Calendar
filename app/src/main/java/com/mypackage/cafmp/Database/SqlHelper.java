@@ -1,6 +1,5 @@
 package com.mypackage.cafmp.Database;
 
-import android.annotation.TargetApi;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
