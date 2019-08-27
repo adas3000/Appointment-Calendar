@@ -50,6 +50,19 @@ public class SqlTests {
         assertEquals("2019-08-29",taskDataArrayList.get(3).getDate().toString());
     }
 
+    @Test
+    public void ifEveryDataEqualsThenok(){
+
+
+        String str_date = taskDataArrayList.get(0).getDate().toString();
+
+        assertEquals("2019-08-26",str_date);
+
+      /*  assertEquals(26,day);
+        assertEquals(8,month);
+        assertEquals(2019,year);*/
+    }
+
 
     @After
     public void onFinish(){
