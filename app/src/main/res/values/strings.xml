@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">CalendarAppForMakingAppointments</string>
+    <string name="app_name">Appointment Calendar</string>
     <string name="noappoints">No Appoinments</string>
 </resources>
