@@ -30,16 +30,16 @@ public class MainActivityHelper {
         selected_Date = new Date(year,month,day);
 
         Stream<TaskData> taskDataStream = taskDataArrayList.stream();
-        String result = taskDataStream
-                .filter(g -> g.getDate().getDay() == day)
-                .filter(g -> g.getDate().getMonth() == month)
-                .filter(g -> g.getDate().getYear() == year).findFirst().toString();
 
+        TaskData taskData = taskDataStream
+                .filter(x->x.getDate().toString().equals(selected_Date.toString()))
+                .findFirst()
+                .orElse(null);
 
-        if(result.equals("Optional.empty"))
-            result = AppData.getContext().getResources().getString(R.string.noappoints);
+        if(taskData==null)
+            return AppData.getContext().getResources().getString(R.string.noappoints);
 
-        return result;
+        return taskData.getStr_Task();
     }
 
 
