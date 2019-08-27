@@ -1,9 +1,11 @@
 package com.mypackage.cafmp;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         selected_Date.setText(mainActivityHelper.getSelected_Date().toString());
 
 
+        MyDialogInterface myDialogInterface = new MyDialogInterface();
 
         calendarView.setOnDateChangeListener((calendarView1, i, i1, i2) -> {
 
@@ -70,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
 
             if(title.isEmpty()) return;
 
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(AppData.getContext());
+            builder.setMessage("Are you sure?").setPositiveButton("Yes",myDialogInterface)
+                    .setNegativeButton("No",myDialogInterface).show();
+
+
             if (textView_appoinment.getText().toString()
                     .equals(AppData.getContext().getResources().getString(R.string.noappoints))){
                 mainActivityHelper.addAppoinment(title, mainActivityHelper.getSelected_Date());
@@ -77,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+
 
 
     }
