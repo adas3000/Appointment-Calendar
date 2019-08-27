@@ -6,7 +6,9 @@ import com.mypackage.cafmp.Data.AppData;
 import com.mypackage.cafmp.Data.TaskData;
 import com.mypackage.cafmp.Database.SqlHelper;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.After;
 import org.junit.Assert;
@@ -27,6 +29,8 @@ public class MainActivityHelperTest {
 
     private MainActivityHelper mainActivityHelper = new MainActivityHelper();
 
+
+
     @Before
     public void setup(){
         mainActivityHelper.addAppoinment("task1",Date.valueOf("2019-08-27"));
@@ -44,13 +48,9 @@ public class MainActivityHelperTest {
 
 
 
-
         assertEquals("task1",str_1);
         assertEquals("task2",str_2);
         assertEquals("task3",str_3);
-
-
-
     }
 
     @Test
@@ -139,7 +139,5 @@ public class MainActivityHelperTest {
     public void onFinish(){
         AppData.getContext().deleteDatabase(SqlHelper.DB_NAME);
     }
-
-
 
 }
