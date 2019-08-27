@@ -16,12 +16,9 @@ import static junit.framework.TestCase.assertEquals;
 public class MainActivityHelperTest {
 
     private MainActivityHelper mainActivityHelper = new MainActivityHelper();
-    private Date selected_Date;
 
     @Before
     public void setup(){
-        long milis = System.currentTimeMillis();
-        selected_Date = new Date(milis);
         mainActivityHelper.addAppoinment("task1",Date.valueOf("2019-08-27"));
         mainActivityHelper.addAppoinment("task2",Date.valueOf("2019-08-28"));
         mainActivityHelper.addAppoinment("task3",Date.valueOf("2019-08-29"));
@@ -34,6 +31,8 @@ public class MainActivityHelperTest {
         String str_1 = mainActivityHelper.onDayChange(27,8,2019);
         String str_2 = mainActivityHelper.onDayChange(28,8,2019);
         String str_3 = mainActivityHelper.onDayChange(29,8,2019);
+
+
 
 
         assertEquals("task1",str_1);

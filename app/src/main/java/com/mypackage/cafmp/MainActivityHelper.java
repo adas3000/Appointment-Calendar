@@ -17,7 +17,7 @@ public class MainActivityHelper {
     private SqlHandler sqlHandler = SqlHandler.getInstance();
     private ArrayList<TaskData> taskDataArrayList = sqlHandler.getAllValuesAsList();
     private Date selected_Date;
-    
+
 
     public MainActivityHelper() {
         long milis = System.currentTimeMillis();
@@ -46,6 +46,8 @@ public class MainActivityHelper {
     public void addAppoinment(String title, Date date) {
         sqlHandler.insertDataIntoDb(title, date);
     }
+
+    public ArrayList<TaskData> getTaskDataArrayList(){return sqlHandler.getAllValuesAsList();}//only for tests
 
 
 
