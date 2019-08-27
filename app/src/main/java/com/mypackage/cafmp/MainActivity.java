@@ -58,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 , localDate.getYear() - 1900));
         selected_Date.setText(mainActivityHelper.getSelected_Date().toString());
 
+        if(!textView_appoinment.getText().toString().equals(AppData.getContext().getResources().getString(R.string.noappoints))) {
+                MyNotifications.showNotification("You have something to do today!",
+                        textView_appoinment.getText().toString());
+        }
+        else {
+            MyNotifications.showNotification("No tasks for today:(",
+                    textView_appoinment.getText().toString());
+        }
 
 
 
