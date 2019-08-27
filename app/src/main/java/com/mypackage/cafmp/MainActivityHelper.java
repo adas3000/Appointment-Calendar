@@ -1,33 +1,36 @@
 package com.mypackage.cafmp;
 
 import android.annotation.TargetApi;
-import android.widget.CalendarView;
+
 
 import com.mypackage.cafmp.Data.AppData;
 import com.mypackage.cafmp.Data.TaskData;
 import com.mypackage.cafmp.Database.SqlHandler;
 
+
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-@TargetApi(24)
+@TargetApi(26)
 public class MainActivityHelper {
 
     private SqlHandler sqlHandler = SqlHandler.getInstance();
     private ArrayList<TaskData> taskDataArrayList = sqlHandler.getAllValuesAsList();
-    private Date selected_Date;
-
+    private LocalDate selected_Date;
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public MainActivityHelper() {
-        long milis = System.currentTimeMillis();
-        selected_Date = new Date(milis);
+        selected_Date = LocalDate.now();
     }
 
-    public Date getSelected_Date(){return selected_Date;}
+    public Date getSelected_Date(){return new Date(selected_Date.getYear(),selected_Date.getMonthValue(),selected_Date.getDayOfMonth());}
 
     public String onDayChange(int day, int month, int year) {
-        selected_Date = new Date(year,month,day);
+
+        selected_Date = LocalDate.of(year,month,day);
 
         Stream<TaskData> taskDataStream = taskDataArrayList.stream();
 

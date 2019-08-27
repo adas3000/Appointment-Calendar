@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         Button button = findViewById(R.id.button_createAppoinment);
         button.setTextColor(Color.WHITE);
         button.setBackgroundColor(Color.RED);
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         selected_Date.setText(mainActivityHelper.getSelected_Date().toString());
+
 
 
         calendarView.setOnDateChangeListener((calendarView1, i, i1, i2) -> {
@@ -70,4 +70,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }
