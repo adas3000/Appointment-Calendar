@@ -57,4 +57,29 @@ public class SqlHandler {
         }
     }
 
+    public void updateDb(String title,Date date,String whereTitle,Date whereDate){
+
+
+        try(SQLiteDatabase db = sqlHelper.getWritableDatabase()){
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(SqlHelper.columns_names[1],title);
+            contentValues.put(SqlHelper.columns_names[2],date.toString());
+
+           db.execSQL("UPDATE "+SqlHelper.DB_TABLE_NAME+" SET "+SqlHelper.columns_names[1]+
+                   "='"+title+"',"+SqlHelper.columns_names[2]+"='"+date.toString()+
+                   "' WHERE "+SqlHelper.columns_names[1]+"='"+whereTitle+"' AND "+
+                   SqlHelper.columns_names[2]+"='"+whereDate.toString()+"'"
+                   );
+
+        }
+
+
+
+
+
+
+    }
+
+
 }

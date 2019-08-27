@@ -13,9 +13,7 @@ import org.junit.Test;
 
 import java.sql.Date;
 
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.stream.Stream;
@@ -76,25 +74,6 @@ public class MainActivityHelperTest {
     }
 
 
-    @Test
-    public void streamTestIfEqualsThenOk(){
-        ArrayList<TaskData> taskDataArrayList = mainActivityHelper.getTaskDataArrayList();
-        Stream<TaskData> taskDataStream = taskDataArrayList.stream();
-        int day = 27,month = 8,year = 2019;
-
-
-        GregorianCalendar gregorianCalendar = new GregorianCalendar(year,month-1,day);
-
-        Date date = new Date(gregorianCalendar.getTime().getTime());
-
-        Log.d("date",date.toString());
-
-        Stream<TaskData> filteredArray = taskDataStream
-                .filter(g -> g.getDate().toString().equals(date.toString()));
-
-
-        assertEquals(1,filteredArray.count());
-    }
 
 
     @Test
@@ -115,29 +94,6 @@ public class MainActivityHelperTest {
 
     }
 
-
-    @Test
-    public void ifTodayThenOk(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.of(2019,8,27);
-        Log.d("date",dtf.format(localDate));
-
-        assertEquals(27,localDate.getDayOfMonth());
-        assertEquals(8,localDate.getMonth().getValue());
-        assertEquals(2019,localDate.getYear());
-        assertEquals("2019-08-27",localDate.toString());
-    }
-
-    @Test
-    public void ifTodayTaskEqualsThenOk(){
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.now();
-
-        String task = mainActivityHelper.onDayChange(localDate.getDayOfMonth(),localDate.getMonthValue(),localDate.getYear());
-
-        assertEquals("task1",task);
-    }
 
 
 
