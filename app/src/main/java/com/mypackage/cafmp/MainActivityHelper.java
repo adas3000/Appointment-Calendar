@@ -48,12 +48,16 @@ public class MainActivityHelper {
         return taskData.getStr_Task();
     }
 
+    public void updateDb(){
+        taskDataArrayList = sqlHandler.getAllValuesAsList();
+    }
 
 
     public void addAppoinment(String title, Date date) {
         sqlHandler.insertDataIntoDb(title, date);
         taskDataArrayList = sqlHandler.getAllValuesAsList();
     }
+
 
     public ArrayList<TaskData> getTaskDataArrayList(){return sqlHandler.getAllValuesAsList();}//only for tests
 

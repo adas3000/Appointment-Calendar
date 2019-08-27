@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mypackage.cafmp.Data.AppData;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.button_createAppoinment);
         button.setTextColor(Color.WHITE);
-        button.setBackgroundColor(Color.RED);
+        button.setBackgroundColor(Color.rgb(153,0,76));
 
 
         ActionBar actionBar = getSupportActionBar();
@@ -53,16 +54,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         LocalDate localDate = LocalDate.now();
-        textView_appoinment.setText(mainActivityHelper.onDayChange(localDate.getDayOfMonth(), localDate.getMonthValue()-1
-                , localDate.getYear()-1900));
+        textView_appoinment.setText(mainActivityHelper.onDayChange(localDate.getDayOfMonth(), localDate.getMonthValue() - 1
+                , localDate.getYear() - 1900));
         selected_Date.setText(mainActivityHelper.getSelected_Date().toString());
 
 
-        MyDialogInterface myDialogInterface = new MyDialogInterface();
+
 
         calendarView.setOnDateChangeListener((calendarView1, i, i1, i2) -> {
 
-            String task = mainActivityHelper.onDayChange(i2, i1 , i-1900);
+            String task = mainActivityHelper.onDayChange(i2, i1, i - 1900);
             textView_appoinment.setText(task);
             selected_Date.setText(mainActivityHelper.getSelected_Date().toString());
 
@@ -70,24 +71,29 @@ public class MainActivity extends AppCompatActivity {
 
         button.setOnClickListener(view -> {
             String title = editText_newAppoinment.getText().toString();
-
-            if(title.isEmpty()) return;
-
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(AppData.getContext());
-            builder.setMessage("Are you sure?").setPositiveButton("Yes",myDialogInterface)
-                    .setNegativeButton("No",myDialogInterface).show();
+            String appText = AppData.getContext().getResources().getString(R.string.noappoints);
+            String current_App = textView_appoinment.getText().toString();
 
 
-            if (textView_appoinment.getText().toString()
-                    .equals(AppData.getContext().getResources().getString(R.string.noappoints))){
+            if (title.length() < 3) {
+                Toast.makeText(AppData.getContext(), "Write at least 3 characters", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (!title.equals(appText) && !current_App.equals(appText)) {
+                MyDialogInterface myDialogInterface = new MyDialogInterface(mainActivityHelper,textView_appoinment,title);
+                myDialogInterface.setUpdateValues(title, mainActivityHelper.getSelected_Date(), current_App, mainActivityHelper.getSelected_Date());
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Are you sure?This operation will change appointment title.")
+                        .setPositiveButton("Yes", myDialogInterface)
+                        .setNegativeButton("No", myDialogInterface).show();
+
+
+
+            } else if (current_App.equals(appText)) {
                 mainActivityHelper.addAppoinment(title, mainActivityHelper.getSelected_Date());
                 textView_appoinment.setText(title);
             }
 
         });
-
-
 
 
     }
