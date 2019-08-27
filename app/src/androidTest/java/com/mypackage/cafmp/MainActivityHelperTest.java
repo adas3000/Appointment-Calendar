@@ -6,24 +6,22 @@ import com.mypackage.cafmp.Data.AppData;
 import com.mypackage.cafmp.Data.TaskData;
 import com.mypackage.cafmp.Database.SqlHelper;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.After;
-import org.junit.Assert;
+import org.junit.Before;
+
+import org.junit.Test;
 
 import java.sql.Date;
+
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.stream.Stream;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 public class MainActivityHelperTest {
 
@@ -37,21 +35,30 @@ public class MainActivityHelperTest {
         mainActivityHelper.addAppoinment("task2",Date.valueOf("2019-08-28"));
         mainActivityHelper.addAppoinment("task3",Date.valueOf("2019-08-29"));
     }
+    @Test
+    public void dateTestifEqualsThenOk(){
+
+        Date date = mainActivityHelper.getSelected_Date();
+        assertTrue(date.toString().equals("2019-08-27"));
+    }
 
 
     @Test
     public void ifEqualsThenOk(){
 
-        String str_1 = mainActivityHelper.onDayChange(27,8,2019);
-        String str_2 = mainActivityHelper.onDayChange(28,8,2019);
-        String str_3 = mainActivityHelper.onDayChange(29,8,2019);
-
-
+        String str_1 = mainActivityHelper.onDayChange(27,8-1,2019-1900);
+        mainActivityHelper.getSelected_Date().toString();
+        String str_2 = mainActivityHelper.onDayChange(28,8-1,2019-1900);
+        mainActivityHelper.getSelected_Date().toString();
+        String str_3 = mainActivityHelper.onDayChange(29,8-1,2019-1900);
+        mainActivityHelper.getSelected_Date().toString();
 
         assertEquals("task1",str_1);
         assertEquals("task2",str_2);
         assertEquals("task3",str_3);
     }
+
+
 
     @Test
     public void getDataAndIfEqualsAndNoExceptnioThenOk(){
@@ -65,7 +72,7 @@ public class MainActivityHelperTest {
         }
 
         assertEquals("task1",taskDataArrayList.get(0).getStr_Task());
-        assertEquals("2019-08-27",taskDataArrayList.get(0).getDate());
+        assertEquals("2019-08-27",taskDataArrayList.get(0).getDate().toString());
     }
 
 

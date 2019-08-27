@@ -3,6 +3,7 @@ package com.mypackage.cafmp;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,8 +16,10 @@ import android.widget.TextView;
 import com.mypackage.cafmp.Data.AppData;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Calendar;
 
+@TargetApi(26)
 public class MainActivity extends AppCompatActivity {
 
     private MainActivityHelper mainActivityHelper = new MainActivityHelper();
@@ -47,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
         selected_Date.setText(mainActivityHelper.getSelected_Date().toString());
 
 
+        LocalDate localDate = LocalDate.now();
+        textView_appoinment.setText(mainActivityHelper.onDayChange(localDate.getDayOfMonth(), localDate.getMonthValue()-1
+                , localDate.getYear()-1900));
+        selected_Date.setText(mainActivityHelper.getSelected_Date().toString());
+
+
 
         calendarView.setOnDateChangeListener((calendarView1, i, i1, i2) -> {
 
@@ -64,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             if (textView_appoinment.getText().toString()
                     .equals(AppData.getContext().getResources().getString(R.string.noappoints))){
                 mainActivityHelper.addAppoinment(title, mainActivityHelper.getSelected_Date());
+                textView_appoinment.setText(title);
             }
 
         });
